@@ -22,7 +22,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
       - uses: actions/checkout@v4
+      
       # 第二步：设置 Node.js 环境
       - name: use Node.js
         # 使用 actions/setup-node 安装 Node.js
