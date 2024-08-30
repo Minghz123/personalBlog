@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the workflow will run
@@ -22,9 +20,8 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-
       - uses: actions/checkout@v4
-      
+
       # 第二步：设置 Node.js 环境
       - name: use Node.js
         # 使用 actions/setup-node 安装 Node.js
@@ -45,13 +42,13 @@ jobs:
         run: yarn build
 
       # 第六步：通过 SSH 连接到远程服务器并删除指定目录中的所有文件
-      - name: Remove Dist 
-      run: sshpass -p ${{secrets.REMOTE_PWD}} ssh -o StrictHostKeyChecking=no root @${{secrets.REMOTE_IP}} "cd /home/blog && rm -rf ./*"
-      
+      - name: Remove Dist
+        run: sshpass -p ${{secrets.REMOTE_PWD}} ssh -o StrictHostKeyChecking=no root@${{secrets.REMOTE_IP}} "cd /home/blog && rm -rf ./*"
+
       # 第七步：通过 SCP将本地生成的打包文件上传到远程服务器的指定目录
-      - name : Upload
-      run :sshpass -p ${{secrets.REMOTE_PWD}} scp -r -o StrictHostKeyChecking=no ./dist root@${{secrets.REMOTE_IP}}:/home/blog
-      
+      - name: Upload
+        run: sshpass -p ${{secrets.REMOTE_PWD}} scp -r -o StrictHostKeyChecking=no ./dist root@${{secrets.REMOTE_IP}}:/home/blog
+
       # # Runs a single command using the runners shell
       # - name: Run a one-line script
       #   run: echo Hello, world!
