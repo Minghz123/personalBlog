@@ -8,15 +8,11 @@ import * as THREE from 'three';
 // import MatcapMaterial from '@/util/materials/Matcap.js'
 import FloorMaterial from '@/util/materials/Floor.js';
 import { onMounted, onUnmounted, ref } from 'vue';
-import AreaFloorBorderGeometry from '@/util/Geometries/AreaFloorBorderGeometry.js';
-import AreaFenceGeometry from '@/util/Geometries/AreaFenceGeometry.js';
-import AreaFenceMaterial from '@/util/materials/AreaFence.js';
-import AreaFloorBordereMaterial from '@/util/materials/AreaFloorBorder.js';
 // import Ammo from "ammojs-typed";
-// @ts-ignore
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+import { FontData, FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import jsontext from '@/assets/font/heiti.json';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import gsap from 'gsap';
@@ -26,9 +22,10 @@ const canvasRef = ref(null);
 let base;
 let controls;
 let transformAux;
-const textureloader = new THREE.TextureLoader();
+
 const clock = new THREE.Clock();
 const loader = new FontLoader();
+// @ts-ignore
 const font = loader.parse(jsontext);
 let angle = new THREE.Vector3(0.135, 1.45, 1.15);
 
@@ -166,22 +163,8 @@ const createmac = () => {
   );
 };
 
-let bor = new THREE.Group();
 let halfExtents = { x: 10.1, y: 4.7 };
-const createBorder = () => {
-  const geometry = new AreaFloorBorderGeometry(halfExtents.x, halfExtents.y, 0.25);
-  const material = new AreaFloorBordereMaterial();
-  material.uniforms.uColor.value = new THREE.Color(0xffffff);
-  material.uniforms.uAlpha.value = 0.5;
-  material.uniforms.uLoadProgress.value = 1;
-  material.uniforms.uProgress.value = 1;
-  const mesh = new THREE.Mesh(geometry, material);
-  mesh.matrixAutoUpdate = false;
-  mesh.position.y = 20;
-  // base.scene.add(mesh)
-  // floorborder = mesh
-  bor.add(mesh);
-};
+
 let zoneList = [];
 const createZone = () => {
   zoneList.push(
@@ -787,6 +770,7 @@ var keysActions = {
   ArrowRight: 'left',
 };
 var vehicleReady = false;
+// @ts-ignore
 let chassisMesh, vehicle: Ammo.btRaycastVehicle;
 async function createVehicle(pos, quat) {
   wheelDirectionCS0 = new Ammo.btVector3(0, -1, 0);
@@ -837,7 +821,7 @@ async function createVehicle(pos, quat) {
 
   physicsWorld.addAction(vehicle);
 
-  var trans = vehicle.getChassisWorldTransform();
+  // var trans = vehicle.getChassisWorldTransform();
 
   function addWheel(isFront, pos, radius, width, index) {
     var wheelInfo = vehicle.addWheel(
@@ -894,19 +878,6 @@ async function createVehicle(pos, quat) {
 }
 
 const createChassisMesh1 = async (position, quaternion) => {
-  // new Promise(async (resolve, reject) => {
-
-  // await loader.load('src/assets/models/car/chassis.glb', async (gltf) => {
-  //     let res = await getConvertedMesh(gltf.scene.children)
-  //     chassisMesh = res
-
-  //     res.children.forEach(child => {
-  //         child.castShadow = true
-  //         child.receiveShadow = true
-  //     })
-  //     res.scale.set(1.5, 1.5, 1.5)
-  //     base.scene.add(res)
-  // })
   let res = base.add({
     base: base.resources.items.chassis.scene,
     scale: new THREE.Vector3(1.5, 1.5, 1.5),
@@ -927,16 +898,6 @@ const createChassisMesh1 = async (position, quaternion) => {
 };
 
 const createWheelMesh1 = async (index) => {
-  // await loader.load('src/assets/models/car/wheel.glb', async (gltf) => {
-  //     let res = await getConvertedMesh(gltf.scene.children)
-  //     res.children.forEach(child => {
-  //         child.castShadow = true
-  //         child.receiveShadow = true
-  //     })
-  //
-  //     res.scale.set(1.5, 1.5, 1.5)
-  //     base.scene.add(res)
-  // })
   let res = base.add({
     base: base.resources.items.wheel.scene,
     scale: new THREE.Vector3(1.5, 1.5, 1.5),
@@ -1374,8 +1335,6 @@ const tick = () => {
     zoneList.forEach((item) => {
       item.updateTime();
     });
-
-    // mainfence.material.uniforms.uTime.value = base.time.elapsed * 5
   }
 };
 var cameraversion = true;

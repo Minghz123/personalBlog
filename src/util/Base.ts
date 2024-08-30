@@ -1,6 +1,6 @@
-import * as THREE from "three";
-import Resource from "./world/Resource";
-import Material from "./world/Materials";
+import * as THREE from 'three';
+import Resource from './world/Resource';
+import Material from './world/Materials';
 // import Ammo from "ammojs-typed";
 export default class Base {
   scene: THREE.Scene;
@@ -20,12 +20,7 @@ export default class Base {
   dirLight: any;
   time: { start: number; elasped: number };
 
-  constructor(
-    canvas,
-    width = window.innerWidth,
-    height = window.innerHeight,
-    color = 0xffffff
-  ) {
+  constructor(canvas, width = window.innerWidth, height = window.innerHeight, color = 0xffffff) {
     this.time = { start: Date.now(), elasped: 0 };
     this.ready = false;
     this.meshObjects = [];
@@ -77,7 +72,7 @@ export default class Base {
 
     this.setMaterials();
     this.creatParsers();
-    console.log("--------check---------");
+    console.log('--------check---------');
     console.log(this.resources, this.materials);
     this.ready = true;
   }
@@ -116,8 +111,7 @@ export default class Base {
   // 初始化物理世界
   initPhysics = () => {
     // 构造离散动态世界，声明相关参数
-    const collisionConfiguration =
-      new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
+    const collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
     const dispatcher = new Ammo.btCollisionDispatcher(collisionConfiguration);
     const broadphase = new Ammo.btDbvtBroadphase();
     const solver = new Ammo.btSequentialImpulseConstraintSolver();
@@ -127,7 +121,7 @@ export default class Base {
       broadphase,
       solver,
       collisionConfiguration,
-      softsolver
+      softsolver,
     );
     // 设置重力
     this.physicsWorld.setGravity(new Ammo.btVector3(0, -9.8, 0));
@@ -149,12 +143,10 @@ export default class Base {
         apply: (_mesh, _options) => {
           // Find material
           const match = _mesh.name.match(/^shade([a-z]+)_?[0-9]{0,3}?/i);
-          const materialName = `${match[1]
-            .substring(0, 1)
-            .toLowerCase()}${match[1].substring(1)}`; // PastalCase to camelCase
+          const materialName = `${match[1].substring(0, 1).toLowerCase()}${match[1].substring(1)}`; // PastalCase to camelCase
           let material = this.materials.shades.items[materialName];
           // Default
-          if (typeof material === "undefined") {
+          if (typeof material === 'undefined') {
             material = new THREE.MeshNormalMaterial();
           }
 
@@ -183,7 +175,7 @@ export default class Base {
           let material = this.materials.pures.items[materialName];
 
           // Default
-          if (typeof material === "undefined") {
+          if (typeof material === 'undefined') {
             material = new THREE.MeshNormalMaterial();
           }
 
@@ -250,10 +242,8 @@ export default class Base {
 
       if (_child instanceof THREE.Mesh) {
         // Find parser and use default if not found
-        let parser = this.parsers.items.find((_item) =>
-          _child.name.match(_item.regex)
-        );
-        if (typeof parser === "undefined") {
+        let parser = this.parsers.items.find((_item) => _child.name.match(_item.regex));
+        if (typeof parser === 'undefined') {
           parser = this.parsers.default;
         }
 
@@ -282,12 +272,7 @@ export default class Base {
     return container;
   }
 
-  createPhysicsByTriangle = (
-    child: THREE.Mesh,
-    mass: number,
-    spring: number,
-    scale: THREE.Vector3
-  ) => {
+  createPhysicsByTriangle = (child: any, mass: number, spring: number, scale: THREE.Vector3) => {
     const shape = new Ammo.btConvexHullShape();
 
     let triangle_mesh = new Ammo.btTriangleMesh();
@@ -309,17 +294,9 @@ export default class Base {
     for (let i = 0; i < triangles.length - 3; i += 3) {
       vectA.setValue(triangles[i].x, triangles[i].y, triangles[i].z);
       shape.addPoint(vectA, true);
-      vectB.setValue(
-        triangles[i + 1].x,
-        triangles[i + 1].y,
-        triangles[i + 1].z
-      );
+      vectB.setValue(triangles[i + 1].x, triangles[i + 1].y, triangles[i + 1].z);
       shape.addPoint(vectB, true);
-      vectC.setValue(
-        triangles[i + 2].x,
-        triangles[i + 2].y,
-        triangles[i + 2].z
-      );
+      vectC.setValue(triangles[i + 2].x, triangles[i + 2].y, triangles[i + 2].z);
       shape.addPoint(vectC, true);
       triangle_mesh.addTriangle(vectA, vectB, vectC, true);
     }
@@ -330,24 +307,12 @@ export default class Base {
     // meshShape.calculateLocalInertia(mass, localInertia);
     shape.calculateLocalInertia(mass, localInertia);
     transform.setIdentity();
-    transform.setOrigin(
-      new Ammo.btVector3(child.position.x, child.position.y, child.position.z)
-    );
+    transform.setOrigin(new Ammo.btVector3(child.position.x, child.position.y, child.position.z));
     transform.setRotation(
-      new Ammo.btQuaternion(
-        child.quaternion.x,
-        child.quaternion.y,
-        child.quaternion.z,
-        child.quaternion.w
-      )
+      new Ammo.btQuaternion(child.quaternion.x, child.quaternion.y, child.quaternion.z, child.quaternion.w),
     );
     let motionState = new Ammo.btDefaultMotionState(transform);
-    let rigid = new Ammo.btRigidBodyConstructionInfo(
-      mass,
-      motionState,
-      shape,
-      localInertia
-    );
+    let rigid = new Ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
     let body = new Ammo.btRigidBody(rigid);
     body.setRestitution(spring);
 
@@ -370,19 +335,9 @@ export default class Base {
     let transform = new Ammo.btTransform();
     let btc = new Ammo.btCompoundShape();
     transform.setIdentity();
-    transform.setOrigin(
-      new Ammo.btVector3(
-        options.position.x,
-        options.position.y,
-        options.position.z
-      )
-    );
+    transform.setOrigin(new Ammo.btVector3(options.position.x, options.position.y, options.position.z));
     let q = new THREE.Quaternion();
-    let r = new THREE.Euler(
-      options.quaternion.x,
-      options.quaternion.y,
-      options.quaternion.z
-    );
+    let r = new THREE.Euler(options.quaternion.x, options.quaternion.y, options.quaternion.z);
     q.setFromEuler(r);
     transform.setRotation(new Ammo.btQuaternion(q.x, q.y, q.z, q.w));
     let motionState = new Ammo.btDefaultMotionState(transform);
@@ -392,13 +347,13 @@ export default class Base {
       let shape = null;
 
       if (item.name.match(/^cube_?[0-9]{0,3}?|box[0-9]{0,3}?$/i)) {
-        shape = "box";
+        shape = 'box';
       } else if (item.name.match(/^cylinder_?[0-9]{0,3}?$/i)) {
-        shape = "cylinder";
+        shape = 'cylinder';
       } else if (item.name.match(/^sphere_?[0-9]{0,3}?$/i)) {
-        shape = "sphere";
+        shape = 'sphere';
       } else if (item.name.match(/^center_?[0-9]{0,3}?$/i)) {
-        shape = "center";
+        shape = 'center';
       }
 
       // Shape is the center
@@ -412,31 +367,18 @@ export default class Base {
         // Geometry
         let shapeGeometry = null;
 
-        if (shape === "cylinder") {
-          shapeGeometry = new Ammo.btCylinderShape(
-            item.scale.x,
-            item.scale.z,
-            item.scale.x
-          );
-        } else if (shape === "box") {
+        if (shape === 'cylinder') {
+          shapeGeometry = new Ammo.btCylinderShape(item.scale.x, item.scale.z, item.scale.x);
+        } else if (shape === 'box') {
           shapeGeometry = new Ammo.btBoxShape(
             new Ammo.btVector3(
-              item.scale.x *
-                options.scale.x *
-                0.5 *
-                (options.scale.x <= 1.5 ? 2 : 1),
-              item.scale.y *
-                options.scale.y *
-                0.5 *
-                (options.scale.x <= 1.5 ? 2 : 1),
-              item.scale.z *
-                options.scale.z *
-                0.5 *
-                (options.scale.x <= 1.5 ? 2 : 1)
-            )
+              item.scale.x * options.scale.x * 0.5 * (options.scale.x <= 1.5 ? 2 : 1),
+              item.scale.y * options.scale.y * 0.5 * (options.scale.x <= 1.5 ? 2 : 1),
+              item.scale.z * options.scale.z * 0.5 * (options.scale.x <= 1.5 ? 2 : 1),
+            ),
           );
           // shapeGeometry = new CANNON.Box(halfExtents);
-        } else if (shape === "sphere") {
+        } else if (shape === 'sphere') {
           shapeGeometry = new Ammo.btSphereShape(item.scale.x);
         }
 
@@ -463,22 +405,16 @@ export default class Base {
           new Ammo.btVector3(
             item.position.x * options.scale.x,
             item.position.y * options.scale.y,
-            item.position.z * options.scale.z
-          )
+            item.position.z * options.scale.z,
+          ),
         );
 
         // Quaternion
-        let rot = new THREE.Euler(
-          item.rotation.x,
-          item.rotation.y,
-          item.rotation.z
-        );
+        let rot = new THREE.Euler(item.rotation.x, item.rotation.y, item.rotation.z);
 
         let quat = new THREE.Quaternion();
         quat.setFromEuler(rot);
-        transform.setRotation(
-          new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w)
-        );
+        transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w));
         let motionState = new Ammo.btDefaultMotionState(transform);
         let localInertia = new Ammo.btVector3(0, 0, 0);
         shapeGeometry.calculateLocalInertia(options.mass, localInertia);
@@ -507,12 +443,7 @@ export default class Base {
     // console.log(container);
     // this.scene.add(container);
     let localInertia = new Ammo.btVector3(0, 0, 0);
-    let rigid = new Ammo.btRigidBodyConstructionInfo(
-      options.mass,
-      motionState,
-      btc,
-      localInertia
-    );
+    let rigid = new Ammo.btRigidBodyConstructionInfo(options.mass, motionState, btc, localInertia);
     let body = new Ammo.btRigidBody(rigid);
     options.show.userData.body = body;
     this.meshObjects.push(options.show);
@@ -529,7 +460,7 @@ export default class Base {
       mass: 0,
       spring: 0,
     },
-    collision: any = null
+    collision: any = null,
   ) {
     let res = this.getConvertedMesh(_options.base.children);
     // let res = _options.base;
@@ -540,23 +471,15 @@ export default class Base {
     //   res = temp;
     // } else
     if (res.children.length == 1) res = res.children[0];
-    res.rotation.set(
-      _options.rotation.x,
-      _options.rotation.y,
-      _options.rotation.z
-    );
-    res.position.set(
-      _options.position.x,
-      _options.position.y,
-      _options.position.z
-    );
+    res.rotation.set(_options.rotation.x, _options.rotation.y, _options.rotation.z);
+    res.position.set(_options.position.x, _options.position.y, _options.position.z);
     res.scale.set(_options.scale.x, _options.scale.y, _options.scale.z);
     res.castShadow = true;
     res.receiveShadow = true;
     this.scene.add(res);
     if (_options.needPhysics) {
       if (collision) {
-        console.log("collision", collision);
+        console.log('collision', collision);
 
         this.addPhysicsObjectsFromGLB({
           mesh: collision.children,
@@ -569,12 +492,7 @@ export default class Base {
         });
         // res.userData.collision = collision
       } else {
-        this.createPhysicsByTriangle(
-          res,
-          _options.mass,
-          _options.spring,
-          _options.scale
-        );
+        this.createPhysicsByTriangle(res, _options.mass, _options.spring, _options.scale);
       }
     }
     return res;
