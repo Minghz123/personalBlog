@@ -1,5 +1,8 @@
 <template>
-  <canvas ref="canvasRef" id="canvasDom"></canvas>
+  <div class="mask" v-show="!vehicleReady"></div>
+  <div v-show="vehicleReady" class="canvas">
+    <canvas ref="canvasRef" id="canvasDom"></canvas>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -38,7 +41,7 @@ onMounted(() => {
 
       controls = new OrbitControls(base.camera, base.renderer.domElement);
       base.addAmbientLight(0.7);
-      base.camera.position.set(0, 200, 50);
+      base.camera.position.set(0, 20, 50);
       setDirLight();
       // initPhysics()
       createObjects();
@@ -769,7 +772,7 @@ var keysActions = {
   ArrowLeft: 'right',
   ArrowRight: 'left',
 };
-var vehicleReady = false;
+var vehicleReady = ref(false);
 // @ts-ignore
 let chassisMesh, vehicle: Ammo.btRaycastVehicle;
 async function createVehicle(pos, quat) {
@@ -874,7 +877,7 @@ async function createVehicle(pos, quat) {
     BACK_RIGHT,
   );
 
-  vehicleReady = true;
+  vehicleReady.value = true;
 }
 
 const createChassisMesh1 = async (position, quaternion) => {
@@ -1219,7 +1222,7 @@ const tick = () => {
     }
   });
 
-  if (vehicleReady) {
+  if (vehicleReady.value) {
     var speed = vehicle.getCurrentSpeedKmHour();
     breakingForce = 0;
     engineForce = 0;
@@ -1337,7 +1340,7 @@ const tick = () => {
     });
   }
 };
-var cameraversion = true;
+var cameraversion = false;
 const resize = () => {
   base.resize();
 };
@@ -1396,5 +1399,17 @@ onUnmounted(() => {
 #canvasDom {
   height: 100vh;
   width: 100vw;
+}
+.canvas {
+  position: absolute;
+  z-index: 0;
+}
+.mask {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background: url('/loading.gif');
+  background-size: 100% 100%;
 }
 </style>
