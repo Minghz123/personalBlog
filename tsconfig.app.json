@@ -1,0 +1,15 @@
+{
+  "include": ["typings.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.ts", "public/js"],
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true
+  }
+}
