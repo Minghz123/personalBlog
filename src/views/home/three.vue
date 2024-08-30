@@ -491,6 +491,7 @@ const createAllText = () => {
 
   createText(`Cephalon Cloud`, 0 + expriencePos.x, 0 + expriencePos.y, -29 + expriencePos.z);
   createText(`web网站`, 0 + expriencePos.x, 0 + expriencePos.y, -28 + expriencePos.z, 0.5);
+  createText(`LOOK`, 0 + expriencePos.x, 0 + expriencePos.y, -22 + expriencePos.z);
   createText(
     `负责: 节日活动页面编写、H5 端 web端适配、屏幕大小适配、功能接口联调及页面埋点`,
     0 + expriencePos.x,
@@ -1401,8 +1402,12 @@ onUnmounted(() => {
   width: 100vw;
 }
 .canvas {
+  height: 100vh;
+  width: 100vw;
   position: absolute;
   z-index: 0;
+
+  overflow: hidden;
 }
 .mask {
   position: absolute;
