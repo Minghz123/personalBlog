@@ -22,8 +22,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # 第一步：拉取最新提交的代码到虚拟机中
-      - name: Pull code
       - uses: actions/checkout@v4
       # 第二步：设置 Node.js 环境
       - name: use Node.js
