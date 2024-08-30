@@ -27,7 +27,7 @@ jobs:
         # 使用 actions/setup-node 安装 Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 16.x # 指定 Node.js 版本为 16.x
+          node-version: 18.x # 指定 Node.js 版本为 16.x
 
       # 第三步：配置国内源以加快依赖项安装速度
       - name: config
