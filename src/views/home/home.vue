@@ -495,6 +495,8 @@ const onSlideChange = () => {
 window.addEventListener('resize', resize);
 
 onUnmounted(() => {
+  Ammo = null;
+  base = null;
   window.removeEventListener('mousemove', mouseListen);
 });
 </script>

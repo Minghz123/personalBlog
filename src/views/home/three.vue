@@ -117,21 +117,23 @@ const createObjects = () => {
 };
 
 const createTower = () => {
-  let mesh = base.add({
-    base: base.resources.items.tower.scene,
-    position: new THREE.Vector3(0, 0, -38),
-    scale: new THREE.Vector3(2, 2, 2),
-    rotation: new THREE.Vector3(0, 0, 0),
-    needPhysics: false,
-    mass: 0,
-    spring: 1,
-  });
-  mesh.children.forEach((item) => {
-    item.castShadow = true;
-    item.receiveShadow = true;
-  });
-  createPhysicsBoxObject(3, 10, 3, 0, 0, mesh.position, new THREE.Quaternion(), mesh);
-  base.scene.add(mesh);
+  let mesh = base.add(
+    {
+      base: base.resources.items.tower.scene,
+      position: new THREE.Vector3(0, 0, -42),
+      scale: new THREE.Vector3(0.05, 0.05, 0.05),
+      rotation: new THREE.Vector3(0, -Math.PI / 2, 0),
+      needPhysics: true,
+      mass: 0,
+      spring: 1,
+    },
+    base.resources.items.towerCollision.scene,
+  );
+
+  // let quat = new THREE.Quaternion(0, 0, 0, 1);
+  // quat.setFromEuler(new THREE.Euler(0, -Math.PI / 2, 0, 'XYZ'));
+  // createPhysicsBoxObject(3, 10, 3, 0, 0, mesh.position, quat, mesh);
+  // base.scene.add(mesh);
 };
 
 const createmac = () => {
@@ -155,7 +157,7 @@ const createmac = () => {
   base.add(
     {
       base: base.resources.items.mac.scene,
-      position: new THREE.Vector3(5, 2, -38),
+      position: new THREE.Vector3(-5, 2, -36),
       scale: new THREE.Vector3(1.5, 1.5, 1.5),
       rotation: new THREE.Vector3(0, (Math.PI * 3) / 4, 0),
       needPhysics: true,
@@ -163,6 +165,26 @@ const createmac = () => {
       spring: 1,
     },
     base.resources.items.macCollision.scene,
+  );
+  let drinkScale = new THREE.Vector3(2, 2, 2);
+  let mesh = base.add({
+    base: base.resources.items.drink.scene,
+    position: new THREE.Vector3(-3, 2, -36),
+    scale: drinkScale,
+    rotation: new THREE.Vector3(0, 0, 0),
+    needPhysics: false,
+    mass: 100,
+    spring: 1,
+  });
+  createPhysicsBoxObject(
+    (0.5 * drinkScale.x) / 2,
+    (0.5 * drinkScale.z) / 1.5,
+    (0.5 * drinkScale.y) / 2,
+    100,
+    0.5,
+    new THREE.Vector3(-3, 2, -36),
+    new THREE.Quaternion(0, 0, 0, 1),
+    mesh,
   );
 };
 
@@ -333,22 +355,27 @@ const createLogoTree = () => {
 };
 
 const createTreeAndRock = () => {
-  let mesh = base.add(
-    {
-      base: base.resources.items.treeAndRock.scene,
-      position: new THREE.Vector3(1, 0.55, 52),
-      scale: new THREE.Vector3(2, 2, 2),
-      rotation: new THREE.Vector3(0, -Math.PI / 2, 0),
-      needPhysics: true,
-      mass: 0,
-      spring: 1,
-    },
-    base.resources.items.treeAndRockCollision.scene,
-  );
-  mesh.children.forEach((child) => {
-    child.castShadow = true;
-    child.receiveShadow = true;
-  });
+  let arr = [
+    new THREE.Vector3(1, 0.55, 52),
+    new THREE.Vector3(-20, 0.55, 0),
+    new THREE.Vector3(30, 0.55, 15),
+    new THREE.Vector3(40, 0.55, 45),
+    new THREE.Vector3(40, 0.55, -45),
+  ];
+  for (let item of arr) {
+    let mesh = base.add(
+      {
+        base: base.resources.items.treeAndRock.scene,
+        position: item,
+        scale: new THREE.Vector3(2, 2, 2),
+        rotation: new THREE.Vector3(0, (Math.floor(Math.random() * 2 - 1) * Math.PI) / 2, 0),
+        needPhysics: true,
+        mass: 0,
+        spring: 1,
+      },
+      base.resources.items.treeAndRockCollision.scene,
+    );
+  }
 };
 
 const createCastle = () => {
@@ -364,6 +391,16 @@ const createCastle = () => {
     },
     base.resources.items.castleCollision.scene,
   );
+  let mesh = base.add({
+    base: base.resources.items.books.scene,
+    position: new THREE.Vector3(4, 2, -20),
+    scale: new THREE.Vector3(1, 1, 1),
+    rotation: new THREE.Vector3(0, 0, 0),
+    needPhysics: false,
+    mass: 0,
+    spring: 1,
+  });
+  createPhysicsBoxObject(3, 2, 2, 100, 0.5, new THREE.Vector3(6, 2, -24), new THREE.Quaternion(0, 0, 0, 1), mesh);
 };
 const createTiles = () => {
   let tiles = [
@@ -472,10 +509,10 @@ const createAllText = () => {
   createText(`东莞理工学院`, 7, 0, -24.5, 0.5);
   createText(`2021.09 - 至今`, 7, 0, -23, 0.5);
 
-  createText(`实习`, -7, 0, -37.5);
-  createText(`端脑科技有限公司`, -7, 0, -36.5, 0.5);
-  createText(`前端开发实习`, -7, 0, -35.5, 0.6);
-  createText(`2023.11 - 2024.6`, -7, 0, -34, 0.5);
+  createText(`实习`, 0, 0, -39.5);
+  createText(`端脑科技有限公司`, 0, 0, -38.5, 0.5);
+  createText(`前端开发实习`, 0, 0, -37.5, 0.6);
+  createText(`2023.11 - 2024.6`, 0, 0, -36, 0.5);
   let expriencePos = new THREE.Vector3(30, 0, 0);
 
   createText(`项目经历`, 0 + expriencePos.x, 0 + expriencePos.y, -10 + expriencePos.z);
@@ -1167,10 +1204,10 @@ const createPhysicsBoxObject = (width, height, depth, mass, spring, pos, quat, m
   // }
   // 将生成好的物体统一收集，进行统一更新
   base.physicsWorld.addRigidBody(body);
-  // let a = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), new THREE.MeshBasicMaterial({ color: 0xff0000 }))
-  // // a.position.copy(mesh.position)
-  // a.position.y = a.position.y + 0.5 * height
-  // base.scene.add(a)
+  // let a = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), new THREE.MeshBasicMaterial({ color: 0xff0000 }));
+  // a.position.set(pos.x, pos.y, pos.z);
+  // // a.position.y = a.position.y + 0.5 * height
+  // base.scene.add(a);
 };
 
 const update = () => {
@@ -1341,7 +1378,7 @@ const tick = () => {
     });
   }
 };
-var cameraversion = false;
+var cameraversion = true;
 const resize = () => {
   base.resize();
 };
@@ -1388,8 +1425,8 @@ window.addEventListener('keyup', keyup);
 window.addEventListener('resize', resize);
 onUnmounted(() => {
   // window.removeEventListener('mousemove', mouseListen)
-  // base = null
-  // Ammo = null
+  base = null;
+  Ammo = null;
   window.removeEventListener('keydown', keydown);
   window.removeEventListener('keyup', keyup);
   window.removeEventListener('resize', resize);

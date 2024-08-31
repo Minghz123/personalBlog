@@ -121,8 +121,16 @@ export default class Resource {
           source: 'models/tower/base.glb',
         },
         {
-          name: 'tower1',
-          source: 'models/tower/base1.glb',
+          name: 'towerCollision',
+          source: 'models/tower/collision.glb',
+        },
+        {
+          name: 'drink',
+          source: 'models/little/drink.glb',
+        },
+        {
+          name: 'books',
+          source: 'models/little/books.glb',
         },
         // { name: 'matcapGold', source: './models/matcaps/gold.png', type: 'texture' },
       ],

@@ -239,7 +239,6 @@ export default class Base {
       if (_child.name.match(/^center_?[0-9]{0,3}?/i)) {
         center.set(_child.position.x, _child.position.y, _child.position.z);
       }
-
       if (_child instanceof THREE.Mesh) {
         // Find parser and use default if not found
         let parser = this.parsers.items.find((_item) => _child.name.match(_item.regex));
@@ -251,6 +250,8 @@ export default class Base {
         const mesh = parser.apply(_child.clone(), _options);
         // Add to container
         container.add(mesh);
+      } else if (_child instanceof THREE.Group) {
+        container.add(_child);
       }
     }
     // Recenter
@@ -386,14 +387,14 @@ export default class Base {
         //   new THREE.BoxGeometry(
         //     item.scale.x * options.scale.x * (options.scale.x <= 1.5 ? 2 : 1),
         //     item.scale.y * options.scale.y * (options.scale.x <= 1.5 ? 2 : 1),
-        //     item.scale.z * options.scale.z * (options.scale.x <= 1.5 ? 2 : 1)
+        //     item.scale.z * options.scale.z * (options.scale.x <= 1.5 ? 2 : 1),
         //   ),
-        //   this.createMaterial()
+        //   this.createMaterial(),
         // );
         // a.position.set(
         //   item.position.x * options.scale.x,
         //   item.position.y * options.scale.y,
-        //   item.position.z * options.scale.z
+        //   item.position.z * options.scale.z,
         // );
         // a.rotation.set(item.rotation.x, item.rotation.y, item.rotation.z);
 
@@ -430,17 +431,9 @@ export default class Base {
         // this.physicsWorld.addRigidBody(body);
       }
     }
-    // container.rotation.set(
-    //   options.quaternion.x,
-    //   options.quaternion.y,
-    //   options.quaternion.z
-    // );
-    // container.position.set(
-    //   options.position.x,
-    //   options.position.y,
-    //   options.position.z
-    // );
-    // console.log(container);
+    // container.rotation.set(options.quaternion.x, options.quaternion.y, options.quaternion.z);
+    // container.position.set(options.position.x, options.position.y, options.position.z);
+    // // console.log(container);
     // this.scene.add(container);
     let localInertia = new Ammo.btVector3(0, 0, 0);
     let rigid = new Ammo.btRigidBodyConstructionInfo(options.mass, motionState, btc, localInertia);
@@ -479,8 +472,6 @@ export default class Base {
     this.scene.add(res);
     if (_options.needPhysics) {
       if (collision) {
-        console.log('collision', collision);
-
         this.addPhysicsObjectsFromGLB({
           mesh: collision.children,
           position: _options.position,
