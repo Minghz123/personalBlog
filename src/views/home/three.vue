@@ -393,14 +393,14 @@ const createCastle = () => {
   );
   let mesh = base.add({
     base: base.resources.items.books.scene,
-    position: new THREE.Vector3(4, 2, -20),
+    position: new THREE.Vector3(-6, 2, -20),
     scale: new THREE.Vector3(1, 1, 1),
     rotation: new THREE.Vector3(0, 0, 0),
     needPhysics: false,
     mass: 0,
     spring: 1,
   });
-  createPhysicsBoxObject(3, 2, 2, 100, 0.5, new THREE.Vector3(6, 2, -24), new THREE.Quaternion(0, 0, 0, 1), mesh);
+  createPhysicsBoxObject(3, 2, 2, 100, 0.5, new THREE.Vector3(-7, 2, -24), new THREE.Quaternion(0, 0, 0, 1), mesh);
 };
 const createTiles = () => {
   let tiles = [
@@ -806,7 +806,7 @@ var keysActions = {
   Space: 'braking',
   KeyR: 'reset',
   ArrowUp: 'accelerate',
-  ArrowDown: 'braking',
+  ArrowDown: 'brake',
   ArrowLeft: 'right',
   ArrowRight: 'left',
 };
