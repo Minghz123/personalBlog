@@ -1378,7 +1378,7 @@ const tick = () => {
     });
   }
 };
-var cameraversion = true;
+var cameraversion = false;
 const resize = () => {
   base.resize();
 };
@@ -1425,8 +1425,8 @@ window.addEventListener('keyup', keyup);
 window.addEventListener('resize', resize);
 onUnmounted(() => {
   // window.removeEventListener('mousemove', mouseListen)
-  base = null;
-  Ammo = null;
+  // base = null;
+  // Ammo = null;
   window.removeEventListener('keydown', keydown);
   window.removeEventListener('keyup', keyup);
   window.removeEventListener('resize', resize);
