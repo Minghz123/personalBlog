@@ -72,9 +72,9 @@ export default class Base {
 
     this.setMaterials();
     this.creatParsers();
-    console.log('--------check---------');
-    console.log(this.resources, this.materials);
     this.ready = true;
+    console.log('--------check---------');
+    console.log(this.resources, this.materials, this.ready);
   }
   update() {
     this.renderer.render(this.scene, this.camera);
