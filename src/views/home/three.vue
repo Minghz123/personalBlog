@@ -22,7 +22,7 @@ import gsap from 'gsap';
 import Zone from '@/util/world/Zone';
 
 const canvasRef = ref(null);
-let base;
+var base;
 let controls;
 let transformAux;
 

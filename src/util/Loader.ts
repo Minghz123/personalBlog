@@ -7,9 +7,12 @@ import * as THREE from 'three';
 export default class Loader {
   loaders = [];
   resources: any;
+  loading: number;
   constructor(_options) {
     this.setLoaders();
     this.resources = _options.resources;
+
+    this.loading = 0;
   }
 
   setLoaders() {
@@ -105,6 +108,7 @@ export default class Loader {
         );
 
         if (loader) {
+          this.loading += 1;
           loader.action(_resource);
         } else {
           console.warn(`Cannot found loader for ${_resource}`);
@@ -113,7 +117,6 @@ export default class Loader {
         console.warn(`Cannot found extension of ${_resource}`);
       }
     }
-    console.log('over', this.resources);
   }
 
   FileLoadEnd(_resource, _data) {
@@ -129,6 +132,7 @@ export default class Loader {
 
       this.resources[`${_resource.name}Texture`] = texture;
     }
+    this.loading -= 1;
   }
 }
 

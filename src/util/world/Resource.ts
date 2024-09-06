@@ -3,9 +3,10 @@ import Loader from '../Loader.ts';
 export default class Resource {
   items: any;
   loader: Loader;
+  ready: boolean;
   constructor() {
     this.items = {};
-
+    this.ready = false;
     this.loader = new Loader({ resources: this.items });
     this.loader.load(
       [
@@ -154,6 +155,12 @@ export default class Resource {
       //   // trigger("progress", [loader.loaded / loader.toLoad]);
       // }
     );
+    let timer = setInterval(() => {
+      if (this.loader.loading == 0) {
+        this.ready = true;
+        clearInterval(timer);
+      }
+    }, 500);
 
     // loader.on("fileEnd", (_resource, _data) => {
     //     this.items[_resource.name] = _data;
