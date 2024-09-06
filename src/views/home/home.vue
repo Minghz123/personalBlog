@@ -510,7 +510,9 @@ onUnmounted(() => {
   //   margin-top: 300px;
   width: 100vw;
   height: 100vh;
-
+  .canvas {
+    cursor: pointer;
+  }
   img {
     width: 1200px;
     height: 500px;
@@ -532,10 +534,6 @@ onUnmounted(() => {
           height: 100%;
           .flex-mode(column);
           .br(); //background-color: antiquewhite;
-
-          .canvas {
-            cursor: pointer;
-          }
         }
 
         .two {
