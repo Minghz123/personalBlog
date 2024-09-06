@@ -1,0 +1,18 @@
+{
+    "hello":"你好",
+    "title":"持续学习，不断进步",
+    "job":"前端工程师",
+    "mone":"热爱学习，热爱生活，不断追求创新、探索新技术"
+    ,"aboutMe":"关于我",
+    "brief":"简单介绍",
+    "introductionOne":"我目前是一名25届的应届生，专注于前端开发领域。"
+    ,"introductionTwo":"在 HTML、CSS、JavaScript 方面有扎实的基础，并熟练掌握vue框架的开发流程。"
+    ,"introductionThree":"同时也具备一定的后端开发能力，能够熟练使用 node.js 技术，了解 Java 后台开发。"
+    ,"introductionFour":"自己对于 3D 开发有浓厚兴趣，熟悉流行的 three.js + ammo.js 三维可视化技术。"
+    ,"skill":"技能",
+    "masteryLevel":"掌握程度",
+    "wx":"微信",
+    "mail":"邮箱",
+    "position":"位置",
+    "detailPlace":"广东省-惠州市"
+}

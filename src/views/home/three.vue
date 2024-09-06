@@ -11,7 +11,7 @@ import * as THREE from 'three';
 // import MatcapMaterial from '@/util/materials/Matcap.js'
 import FloorMaterial from '@/util/materials/Floor.js';
 import { onMounted, onUnmounted, ref } from 'vue';
-// import Ammo from "ammojs-typed";
+// import Ammo from 'ammojs-typed';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -998,6 +998,7 @@ const createPhysicsPlaneObject = (mass, spring, pos, quat, mesh) => {
   let plane = new Ammo.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
   let body = new Ammo.btRigidBody(plane);
   body.setRestitution(spring);
+  body.setFriction(0.5);
   // 将生成好的物理模型保存在mesh对象中以备后续更新使用
   mesh.userData.body = body;
   // 将生成好的物体统一收集，进行统一更新
@@ -1154,8 +1155,8 @@ const createPlane = () => {
     material.uniforms.tBackground.value = backgroundTexture;
   };
 
-  updateMaterial();
-  // material = new THREE.MeshBasicMaterial({ color: 0x666666 })
+  // updateMaterial();
+  material = new THREE.MeshBasicMaterial({ color: 0x666666 });
   let mesh = new THREE.Mesh(plane, material);
   mesh.frustumCulled = false;
   mesh.matrixAutoUpdate = false;
@@ -1196,6 +1197,7 @@ const createPhysicsBoxObject = (width, height, depth, mass, spring, pos, quat, m
 
   let body = new Ammo.btRigidBody(rigid);
   body.setRestitution(spring);
+  body.setFriction(0.8);
   // 将生成好的物理模型保存在mesh对象中以备后续更新使用
   mesh.userData.body = body;
   // if (mass > 0) {

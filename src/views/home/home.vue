@@ -1,5 +1,5 @@
 <template>
-  <!-- <canvas id="canvasDom" ref="canvasDom" style="margin-left: 100px; margin-top:200px;"></canvas> -->
+  <!-- <canvas id="canvasDom" ref="canvasDom" style="margin-left: 100px; margin-top: 200px"></canvas> -->
   <div class="swiper">
     <canvas id="canvasDom" ref="canvasDom"></canvas>
     <!-- <swiper
@@ -22,7 +22,7 @@
               <canvas id="canvasDom" ref="canvasDom"></canvas>
             </div>
             <div class="two">
-              <h3>two</h3>
+              <router-link to="/introduction/two"><h3>two</h3></router-link>
             </div>
           </div>
         </div>
@@ -74,6 +74,8 @@ onMounted(() => {
     Ammo().then((AmmoLib) => {
       Ammo = AmmoLib;
       base = new Base(canvasDom.value, window.innerWidth, document.getElementById('app').offsetHeight, 0xf49f0a);
+      // base = new Base(canvasDom.value, 400, 200, 0xf49f0a);
+
       base.addAmbientLight(0.75);
       base.camera.position.set(9.56, 13.45, 18.5);
       createObjects();
