@@ -426,7 +426,7 @@ const playAnimation = () => {
       trigger: '.flower',
     },
     onComplete() {
-      document.getElementsByClassName('flower')[0].getElementsByClassName('left')[0].style.opacity = 1;
+      document.getElementsByClassName('flower')[0].getElementsByClassName('left')[0]['style'].opacity = '1';
       gsap.from('.item', {
         opacity: 0,
         scale: 0,
@@ -548,7 +548,8 @@ const playAnimation = () => {
         duration: 0.5,
         ease: 'none',
       });
-      document.getElementsByClassName('plant')[0].style.opacity = 1;
+      let el = document.getElementsByClassName('plant')[0];
+      el['style'].opacity = '1';
       gsap.from('.origin', {
         // zoom: 0,
         opacity: 0,
@@ -667,7 +668,7 @@ const playAnimation = () => {
         duration: 1,
         repeatDelay: 0.5,
         onRepeat() {
-          document.getElementsByClassName('roulette')[0].style.rotate = a + 'deg';
+          document.getElementsByClassName('roulette')[0]['style'].rotate = a + 'deg';
           a = (a + 90) % 360;
         },
       });
