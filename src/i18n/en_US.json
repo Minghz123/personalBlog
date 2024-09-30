@@ -1,5 +1,6 @@
 {
     "hello":"Hello",
+    "contact":"Contact Me",
     "title":"Continuous learning, continuous improvement",
     "job":"Front-end Engineer",
     "mone":"Passionate about learning, passionate about life, constantly pursuing innovation and exploring new technologies"
@@ -9,10 +10,18 @@
     ,"introductionTwo":"I have a solid foundation in HTML, CSS, and JavaScript, and am proficient in the development process of the Vue framework. "
     ,"introductionThree":"At the same time, I also have certain backend development capabilities, proficient in using Node.js technology, and understand Java backend development."
     ,"introductionFour":"I have a strong interest in 3D development and am familiar with the popular Three.js+ammo.js 3D visualization techniques."
-        ,"skill":"Skill",
+    ,"skill":"Skill",
+    "skillIntroductionOne":"JavaScript is my best language, and TypeScript can also be used proficiently in projects.",
+    "skillIntroductionTwo":"There are 3+ complete projects written using the Vue framework. React can also be used proficiently and you can get started quickly.",
+    "skillIntroductionThree":"WeChat Mini Program has developed 2+ projects and can be developed using native development tools or Uniapp.",
+    "skillIntroductionFour":"Able to skillfully use Threejs and Ammojs for 3D development.",
+    "exprience":"Exprience",
+    "personalResume":"Personal Resume",
     "masteryLevel":"Mastery Level",
     "wx":"WeChat",
     "mail":"Mail",
     "position":"Position",
-    "detailPlace":"Huizhou City-Guangdong Province"
+    "detailPlace":"Huizhou City-Guangdong Province",
+    "start":"START",
+    "end":"END"
 }

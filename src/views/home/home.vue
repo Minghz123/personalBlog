@@ -1,8 +1,7 @@
 <template>
-  <!-- <canvas id="canvasDom" ref="canvasDom" style="margin-left: 100px; margin-top: 200px"></canvas> -->
   <div class="swiper">
-    <canvas id="canvasDom" ref="canvasDom"></canvas>
-    <!-- <swiper
+    <!-- <canvas id="canvasDom" ref="canvasDom"></canvas> -->
+    <swiper
       direction="vertical"
       :mousewheel="(true as undefined)"
       :slidesPerView="1"
@@ -16,20 +15,54 @@
     >
       <swiper-slide class="swiperItem">
         <div class="firstpage">
-          <h3 class="title">这里是简历</h3>
+          <h3 class="title">个人介绍</h3>
           <div class="content">
             <div class="three">
               <canvas id="canvasDom" ref="canvasDom"></canvas>
             </div>
             <div class="two">
-              <router-link to="/introduction/two"><h3>two</h3></router-link>
+              <router-link to="/introduction/two">
+                <div class="parper">
+                  <div class="list">
+                    <div class="pic">
+                      <div class="head"></div>
+                      <div class="body"></div>
+                    </div>
+                    <div class="line">
+                      <div class="lineItem" v-for="i in 4"></div>
+                    </div>
+                  </div>
+                  <div class="pie">
+                    <div class="peice1 peice"></div>
+                    <div class="peice2 peice"></div>
+                    <div class="peice3 peice"></div>
+                  </div>
+                  <div class="lineBox">
+                    <div class="lineBoxItem" v-for="i in 5"></div>
+                  </div>
+                  <SvgIcon class="fly" name="fly" width="50" height="50" color="hotpink"></SvgIcon>
+                  <div class="message">
+                    <div class="buble">
+                      <div class="dotBox">
+                        <div class="dot" v-for="i in 3"></div>
+                      </div>
+                      <div class="tail"></div>
+                    </div>
+                    <div class="pic">
+                      <div class="head"></div>
+                      <div class="body"></div>
+                    </div>
+                  </div>
+                  <SvgIcon class="icon2d" name="2D" width="100" height="100"></SvgIcon>
+                </div>
+              </router-link>
             </div>
           </div>
         </div>
       </swiper-slide>
-      <swiper-slide class="swiperItem"> nihao2 </swiper-slide>
-      <swiper-slide class="swiperItem"> nihao3 </swiper-slide>
-    </swiper> -->
+      <!-- <swiper-slide class="swiperItem"> nihao2 </swiper-slide>
+      <swiper-slide class="swiperItem"> nihao3 </swiper-slide> -->
+    </swiper>
   </div>
 </template>
 
@@ -56,6 +89,8 @@ import { Line2 } from 'three/examples/jsm/lines/Line2.js';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry.js';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
 import { useRouter } from 'vue-router';
+import SvgIcon from '@/components/SvgIcon.vue';
+import { Observer } from 'gsap/Observer';
 
 let modules = [Autoplay, Navigation, Pagination, Scrollbar, A11y, Mousewheel];
 //定义swiperNew,目的获取非响应式swiper
@@ -70,11 +105,12 @@ const router = useRouter();
 window.addEventListener('mousemove', mouseListen);
 
 onMounted(() => {
+  playAnimation();
   if (!Ammo.btTransform) {
     Ammo().then((AmmoLib) => {
       Ammo = AmmoLib;
-      base = new Base(canvasDom.value, window.innerWidth, document.getElementById('app').offsetHeight, 0xf49f0a);
-      // base = new Base(canvasDom.value, 400, 200, 0xf49f0a);
+      // base = new Base(canvasDom.value, window.innerWidth, document.getElementById('app').offsetHeight, 0xf49f0a);
+      base = new Base(canvasDom.value, 700, 400, 0xf49f0a);
 
       base.addAmbientLight(0.75);
       base.camera.position.set(9.56, 13.45, 18.5);
@@ -85,7 +121,8 @@ onMounted(() => {
       console.log(base);
     });
   } else {
-    base = new Base(canvasDom.value, window.innerWidth, document.getElementById('app').offsetHeight, 0xf49f0a);
+    // base = new Base(canvasDom.value, window.innerWidth, document.getElementById('app').offsetHeight, 0xf49f0a);
+    base = new Base(canvasDom.value, 700, 400, 0xf49f0a);
     base.addAmbientLight(0.75);
     base.camera.position.set(9.56, 13.45, 18.5);
     createObjects();
@@ -95,6 +132,70 @@ onMounted(() => {
     console.log(base);
   }
 });
+
+const playAnimation = () => {
+  let parper, list, icon2d, line, fly, pie, message;
+  gsap.registerPlugin(Observer);
+  Observer.create({
+    target: '.two',
+    type: 'wheel, touch, pointer',
+
+    onHover() {
+      parper = gsap.to('.parper', {
+        scale: 1.2,
+        ease: 'bounce',
+        duration: 0.5,
+        onComplete() {
+          list = gsap.to('.list', {
+            backgroundColor: 'rgb(247, 94, 170)',
+            ease: 'power2.inOut',
+            duration: 1,
+          });
+          icon2d = gsap.to('.icon2d', {
+            scale: 1.5,
+            fill: 'rgb(212, 33, 33)',
+            ease: 'power2.inOut',
+            duration: 1,
+          });
+          line = gsap.to('.lineBoxItem', {
+            width: '100%',
+            stagger: 0.2,
+            ease: 'elastic',
+          });
+          fly = gsap.to('.fly', {
+            x: 220,
+            y: -120,
+            ease: 'power.in',
+            duration: 1,
+          });
+          pie = gsap.to('.peice', {
+            scale: 1.2,
+            rotate: 360,
+            duration: 1,
+            ease: 'back.out',
+          });
+          message = gsap.to('.dot', {
+            backgroundColor: 'rgb(0, 115, 255)',
+            keyframes: [{ y: -10 }, { y: 0 }],
+            stagger: 0.1,
+            ease: 'bounce',
+            duration: 1,
+          });
+        },
+      });
+    },
+    onHoverEnd() {
+      parper.reverse();
+      list.reverse();
+      icon2d.reverse();
+      line.reverse();
+      fly.reverse();
+      pie.reverse();
+      message.reverse();
+    },
+  });
+};
+
 function mouseListen(event) {
   base.mouse.x = ((event.clientX - canvasDom.value.offsetLeft) / base.sizes?.width) * 2 - 1;
   base.mouse.y = -((event.clientY - canvasDom.value.offsetTop) / base.sizes?.height) * 2 + 1;
@@ -399,7 +500,7 @@ const createText = () => {
   const loader = new FontLoader();
   const font = loader.parse(jsontext);
   // loader.load("@/assets/font/font.json", function (font) {
-  const myGeometry = new TextGeometry('START', {
+  const myGeometry = new TextGeometry('3 D', {
     font: font,
     size: 1,
     depth: 0,
@@ -523,25 +624,291 @@ onUnmounted(() => {
       height: 100%;
       width: 100%;
       .flex-mode(column);
-
+      .title {
+        position: absolute;
+        z-index: 2;
+        color: #fff;
+        font-size: 3rem;
+        font-weight: bold;
+        top: 5rem;
+      }
       .content {
         width: 100%;
-        height: 70%;
+        height: 100%;
         .flex-mode(row);
 
         .three {
           width: 100%;
           height: 100%;
           .flex-mode(column);
-          .br(); //background-color: antiquewhite;
+
+          background-color: #f49f0a;
+        }
+
+        .three::after {
+          position: absolute;
+          content: '';
+          width: 100px;
+          height: 100%;
+          left: 50%;
+          z-index: 1;
+          background-color: #f49f0a;
+          transform: translateX(-100%);
+          clip-path: polygon(
+            0 0,
+            80% 0,
+            0% 10%,
+            80% 20%,
+            0% 30%,
+            80% 40%,
+            0% 50%,
+            80% 60%,
+            0% 70%,
+            80% 80%,
+            0% 90%,
+            80% 100%,
+            0% 100%
+          );
+          transition: 1s all;
+        }
+        .three:hover::after {
+          z-index: 1;
+          transform: translateX(0%);
         }
 
         .two {
           width: 100%;
           height: 100%;
           .flex-mode(column);
+          background-color: aquamarine;
+          .parper {
+            width: 300px;
+            height: 450px;
+            padding: 1rem;
+            background-color: #fff;
+            .flex-mode(column);
+            position: relative;
+            .icon2d {
+              fill: rgb(36, 33, 212);
+            }
+            .list {
+              background-color: rgb(33, 106, 252);
+              width: 5rem;
+              height: 6rem;
+              padding: 1rem;
+              position: absolute;
+              top: 1rem;
+              left: 1rem;
+              border-radius: 0.5rem;
+              .flex-mode(column,space-between);
+              gap: 1rem;
+              box-shadow: 1rem 1rem 0.2rem rgba(0, 191, 255, 0.248);
+              .pic {
+                .flex-mode(column);
+                transform: scale(1.5);
+                .head {
+                  width: 0.5rem;
+                  height: 0.5rem;
+                  border-radius: 50%;
+                  background-color: #fff;
+                }
+                .body {
+                  width: 0.75rem;
+                  height: 0.5rem;
+                  //border-radius: 50%;
+                  background-color: #fff;
+                  clip-path: ellipse(0.25rem 0.375rem at bottom);
+                }
+              }
+              .line {
+                .flex-mode(column);
+                width: 3rem;
+                gap: 0.5rem;
+                .lineItem {
+                  background-color: #fff;
+                  height: 0.2rem;
+                }
+                .lineItem:nth-child(1) {
+                  width: 100%;
+                }
+                .lineItem:nth-child(2) {
+                  width: 40%;
+                }
+                .lineItem:nth-child(3) {
+                  width: 60%;
+                }
+                .lineItem:nth-child(4) {
+                  width: 100%;
+                }
+              }
+            }
+            .pie {
+              position: absolute;
+              border-radius: 50%;
+              width: 100px;
+              height: 100px;
+              background-color: rgba(0, 0, 0, 0.718);
+              box-shadow: 0.5rem 0.5rem 0.2rem rgba(0, 191, 255, 0.248);
+              bottom: 1rem;
+              right: 1rem;
+              .flex-mode();
+              .peice {
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+                clip-path: polygon(70% 0, 100% 0, 100% 30%, 50% 50%);
+                position: absolute;
+              }
+              .peice1 {
+                background-color: red;
+                clip-path: polygon(70% 0, 100% 0, 100% 30%, 50% 50%);
+              }
+              .peice2 {
+                width: 120px;
+                height: 120px;
+                background-color: rgb(255, 111, 0);
+                clip-path: polygon(100% 20%, 100% 70%, 50% 50%);
+              }
+              .peice3 {
+                width: 120px;
+                height: 120px;
+                background-color: rgb(0, 115, 255);
+                clip-path: polygon(100% 70%, 100% 90%, 50% 50%);
+              }
+            }
+            .lineBox {
+              position: absolute;
+              right: 1rem;
+              top: 2rem;
+              width: 7rem;
+              .flex-mode(column,center,flex-start);
+              gap: 0.5rem;
+              .lineBoxItem {
+                height: 0.5rem;
+                box-shadow: 0.2rem 0.2rem 0.1rem rgba(0, 191, 255, 0.248);
+              }
+              .lineBoxItem:nth-child(1) {
+                background-color: skyblue;
+                width: 100%;
+              }
+              .lineBoxItem:nth-child(2) {
+                background-color: hotpink;
+                width: 80%;
+              }
+              .lineBoxItem:nth-child(3) {
+                background-color: orange;
+                width: 70%;
+              }
+              .lineBoxItem:nth-child(4) {
+                background-color: purple;
+                width: 30%;
+              }
+              .lineBoxItem:nth-child(5) {
+                background-color: rgb(9, 128, 0);
+                width: 10%;
+              }
+            }
+            .fly {
+              position: absolute;
+              top: 60%;
+              left: 1rem;
+              transform: translate(0%, -50%);
+            }
+            .message {
+              position: absolute;
+              width: 7rem;
+              height: 5rem;
+              bottom: 1rem;
+              left: 1rem;
+              .flex-mode(column);
+              gap: 0.5rem;
 
-          .br(blue); //background-color: aquamarine;
+              .buble {
+                width: 70%;
+                height: 40%;
+                background-color: rgba(62, 37, 203, 0.882);
+                padding: 1rem;
+                position: relative;
+                z-index: 2;
+                border-radius: 10%;
+                box-shadow: 1rem 1rem 0.2rem rgba(0, 191, 255, 0.248);
+                .tail {
+                  position: absolute;
+                  width: 50%;
+                  height: 50%;
+                  top: 100%;
+                  left: 30%;
+                  background-color: rgba(62, 37, 203, 0.882);
+                  clip-path: polygon(0 0, 70% 0, 100% 80%);
+                }
+                .dotBox {
+                  width: 100%;
+                  height: 100%;
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  z-index: 2;
+                  .flex-mode(row,space-around);
+                  .dot {
+                    width: 15%;
+                    height: 40%;
+                    border-radius: 50%;
+                    background-color: #fff;
+                  }
+                }
+              }
+              .pic {
+                .flex-mode(column);
+                align-self: flex-end;
+                transform: translateX(-1rem) scale(1.5);
+
+                .head {
+                  width: 0.5rem;
+                  height: 0.5rem;
+                  border-radius: 50%;
+                  background-color: #ff00bf;
+                }
+                .body {
+                  width: 0.75rem;
+                  height: 0.5rem;
+                  //border-radius: 50%;
+                  background-color: #1e00ff;
+                  clip-path: ellipse(0.25rem 0.375rem at bottom);
+                  box-shadow: 0.2rem 0.2rem 0.1rem rgba(0, 191, 255, 0.248);
+                }
+              }
+            }
+          }
+        }
+        .two::before {
+          position: absolute;
+          content: '';
+          width: 100px;
+          height: 100%;
+          left: 50%;
+          z-index: 1;
+          background-color: aquamarine;
+          clip-path: polygon(
+            100% 0,
+            80% 0,
+            0% 10%,
+            80% 20%,
+            0% 30%,
+            80% 40%,
+            0% 50%,
+            80% 60%,
+            0% 70%,
+            80% 80%,
+            0% 90%,
+            80% 100%,
+            100% 100%
+          );
+          transition: 1s all;
+        }
+        .two:hover::before {
+          z-index: 1;
+
+          transform: translateX(-100%);
         }
       }
     }

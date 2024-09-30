@@ -1,5 +1,6 @@
 {
     "hello":"你好",
+    "contact":"与我联系",
     "title":"持续学习，不断进步",
     "job":"前端工程师",
     "mone":"热爱学习，热爱生活，不断追求创新、探索新技术"
@@ -7,12 +8,20 @@
     "brief":"简单介绍",
     "introductionOne":"我目前是一名25届的应届生，专注于前端开发领域。"
     ,"introductionTwo":"在 HTML、CSS、JavaScript 方面有扎实的基础，并熟练掌握vue框架的开发流程。"
-    ,"introductionThree":"同时也具备一定的后端开发能力，能够熟练使用 node.js 技术，了解 Java 后台开发。"
+    ,"introductionThree":"同时也具备一定的后端开发能力，能够熟练使用 node.js 技术。"
     ,"introductionFour":"自己对于 3D 开发有浓厚兴趣，熟悉流行的 three.js + ammo.js 三维可视化技术。"
     ,"skill":"技能",
+    "skillIntroductionOne":"JavaScript 是我最擅长的语言，TypeScript 也能在项目中熟练使用。",
+    "skillIntroductionTwo":"使用 Vue 框架编写的完整项目有 3+，React 也能够熟练使用，能快速上手。",
+    "skillIntroductionThree":"微信小程序 开发过 2+ 个项目，能够使用原生开发工具开发，亦可使用 Uniapp 进行开发。",
+    "skillIntroductionFour":"能够熟练使用 Threejs 和 Ammojs 进行三维开发。",
     "masteryLevel":"掌握程度",
+    "exprience":"经历",
+    "personalResume":"个人履历",
     "wx":"微信",
     "mail":"邮箱",
     "position":"位置",
-    "detailPlace":"广东省-惠州市"
+    "detailPlace":"广东省-惠州市",
+    "start":"开始",
+    "end":"结束"
 }
