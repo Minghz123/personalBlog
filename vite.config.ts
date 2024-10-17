@@ -34,15 +34,15 @@ export default defineConfig({
       },
     },
     postcss: {
-      // plugins: [
-      //   postCssPxToRem({
-      //     rootValue: 16,
-      //     propList: ['*'],
-      //   }),
-      //   autoprefixer({
-      //     overrideBrowserslist: ['Android >= 4.1', 'iOS >= 7.1', 'Chrome > 31', 'ff >31', 'Safari >= 9', 'IE >= 8'],
-      //   }),
-      // ],
+      plugins: [
+        postCssPxToRem({
+          rootValue: 16,
+          propList: ['*'],
+        }),
+        autoprefixer({
+          overrideBrowserslist: ['Android >= 4.1', 'iOS >= 7.1', 'Chrome > 31', 'ff >31', 'Safari >= 9', 'IE >= 8'],
+        }),
+      ],
     },
   },
   resolve: {
