@@ -40,7 +40,7 @@
                   <div class="lineBox">
                     <div class="lineBoxItem" v-for="i in 5"></div>
                   </div>
-                  <SvgIcon class="fly" name="fly" width="50" height="50" color="hotpink"></SvgIcon>
+                  <!-- <SvgIcon class="fly" name="fly" width="3.125rem" height="3.125rem" color="hotpink"></SvgIcon> -->
                   <div class="message">
                     <div class="buble">
                       <div class="dotBox">
@@ -53,7 +53,7 @@
                       <div class="body"></div>
                     </div>
                   </div>
-                  <SvgIcon class="icon2d" name="2D" width="100" height="100"></SvgIcon>
+                  <SvgIcon class="icon2d" name="2D" width="6.25rem" height="6.25rem"></SvgIcon>
                 </div>
               </router-link>
             </div>
@@ -109,8 +109,8 @@ onMounted(() => {
   if (!Ammo.btTransform) {
     Ammo().then((AmmoLib) => {
       Ammo = AmmoLib;
-      // base = new Base(canvasDom.value, window.innerWidth, document.getElementById('app').offsetHeight, 0xf49f0a);
-      base = new Base(canvasDom.value, 700, 400, 0xf49f0a);
+      base = new Base(canvasDom.value, window.innerWidth / 2, document.getElementById('app').offsetHeight, 0xf49f0a);
+      // base = new Base(canvasDom.value, 700, 400, 0xf49f0a);
 
       base.addAmbientLight(0.75);
       base.camera.position.set(9.56, 13.45, 18.5);
@@ -121,8 +121,8 @@ onMounted(() => {
       console.log(base);
     });
   } else {
-    // base = new Base(canvasDom.value, window.innerWidth, document.getElementById('app').offsetHeight, 0xf49f0a);
-    base = new Base(canvasDom.value, 700, 400, 0xf49f0a);
+    base = new Base(canvasDom.value, window.innerWidth / 2, document.getElementById('app').offsetHeight, 0xf49f0a);
+    // base = new Base(canvasDom.value, 700, 400, 0xf49f0a);
     base.addAmbientLight(0.75);
     base.camera.position.set(9.56, 13.45, 18.5);
     createObjects();
@@ -162,12 +162,12 @@ const playAnimation = () => {
             stagger: 0.2,
             ease: 'elastic',
           });
-          fly = gsap.to('.fly', {
-            x: 220,
-            y: -120,
-            ease: 'power.in',
-            duration: 1,
-          });
+          // fly = gsap.to('.fly', {
+          //   x: 220,
+          //   y: -120,
+          //   ease: 'power.in',
+          //   duration: 1,
+          // });
           pie = gsap.to('.peice', {
             scale: 1.2,
             rotate: 360,
@@ -189,7 +189,7 @@ const playAnimation = () => {
       list.reverse();
       icon2d.reverse();
       line.reverse();
-      fly.reverse();
+      // fly.reverse();
       pie.reverse();
       message.reverse();
     },
@@ -680,7 +680,7 @@ onUnmounted(() => {
           width: 100%;
           height: 100%;
           .flex-mode(column);
-          background-color: aquamarine;
+          background-color: cornflowerblue;
           .parper {
             width: 300px;
             height: 450px;
@@ -808,12 +808,14 @@ onUnmounted(() => {
                 width: 10%;
               }
             }
-            .fly {
-              position: absolute;
-              top: 60%;
-              left: 1rem;
-              transform: translate(0%, -50%);
-            }
+            // .fly {
+            //   position: absolute;
+            //   width: 3.125rem;
+            //   height: 3.125rem;
+            //   top: 60%;
+            //   left: 1rem;
+            //   transform: translate(0%, -50%);
+            // }
             .message {
               position: absolute;
               width: 7rem;
@@ -887,7 +889,7 @@ onUnmounted(() => {
           height: 100%;
           left: 50%;
           z-index: 1;
-          background-color: aquamarine;
+          background-color: cornflowerblue;
           clip-path: polygon(
             100% 0,
             80% 0,
@@ -908,7 +910,7 @@ onUnmounted(() => {
         .two:hover::before {
           z-index: 1;
 
-          transform: translateX(-100%);
+          transform: translateX(-99%);
         }
       }
     }

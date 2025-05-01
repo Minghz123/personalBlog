@@ -20,7 +20,7 @@ export default class Base {
   dirLight: any;
   time: { start: number; elasped: number };
 
-  constructor(canvas, width = window.innerWidth, height = window.innerHeight, color = 0xffffff) {
+  constructor(canvas, width = window.innerWidth / 2, height = window.innerHeight, color = 0xffffff) {
     this.time = { start: Date.now(), elasped: 0 };
     this.ready = false;
     this.meshObjects = [];
@@ -86,6 +86,8 @@ export default class Base {
   }
   // 自适应
   resize() {
+    this.sizes.width = window.innerWidth / 2;
+    this.sizes.height = window.innerHeight;
     this.camera.aspect = this.sizes.width / this.sizes.height;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.sizes.width, this.sizes.height);

@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <div class="nav" @click="gotoFooter('header')">
-      <SvgIcon name="arrowUp" color="white" width="20" height="20"></SvgIcon>
+      <SvgIcon class="arrowsvg" name="arrowUp" color="white" width="1.25rem" height="1.25rem"></SvgIcon>
     </div>
     <!-- <canvas id="canvasDom" ref="canvasDom"></canvas> -->
     <header class="header" id="header">
       <span class="title">Ming</span>
       <button @click="changeLang">
-        <SvgIcon class="switch" name="switch" width="25" height="25"></SvgIcon>
+        <SvgIcon class="switch" name="switch" width="1.5625rem" height="1.5625rem"></SvgIcon>
       </button>
     </header>
 
@@ -18,7 +18,7 @@
         <span class="mone">{{ $t('mone') }}</span>
         <button @click="gotoFooter('footer')" class="btn">
           {{ $t('contact') }}
-          <SvgIcon name="fly" width="20" height="20" color="white"></SvgIcon>
+          <SvgIcon name="fly" class="fly" width="1.25rem" height="1.25rem" color="white"></SvgIcon>
         </button>
       </div>
       <div class="right">
@@ -60,7 +60,7 @@
       </div>
       <div class="bot">
         <div class="left">
-          <!-- <img src="/loading.gif" alt="" /> -->
+        
           <Radar></Radar>
         </div>
         <div class="right">
@@ -112,7 +112,7 @@
             </div>
             <div class="sunCloud">
               <div class="cloud">
-                <SvgIcon name="cloud" width="300" height="154"></SvgIcon>
+                <SvgIcon class="cloudsvg" name="cloud" width="18.75rem" height="9.625rem"></SvgIcon>
               </div>
               <div class="sun"></div>
               <div class="sunLight"></div>
@@ -120,16 +120,16 @@
               <div class="sunLight light3"></div>
               <div class="plant">
                 <div class="plant1 origin">
-                  <SvgIcon name="plant1" width="215" height="152"></SvgIcon>
+                  <SvgIcon class="plantsvg" name="plant1" width="13.4375rem" height="9.5rem"></SvgIcon>
                 </div>
                 <div class="plant2 origin">
-                  <SvgIcon name="plant2" width="150" height="154"></SvgIcon>
+                  <SvgIcon class="plantsvg" name="plant2" width="9.375rem" height="9.625rem"></SvgIcon>
                 </div>
               </div>
             </div>
             <div class="lakeLand">
               <div class="land">
-                <SvgIcon class="landsvg" name="lake" width="600" height="308"></SvgIcon>
+                <SvgIcon class="landsvg" name="lake" width="25rem" height="19.25rem"></SvgIcon>
               </div>
               <div class="lake"></div>
             </div>
@@ -146,10 +146,10 @@
               </div>
               <div class="pic"></div>
               <div class="books">
-                <SvgIcon name="books" width="200" height="200"></SvgIcon>
+                <SvgIcon class="svg" name="books" width="12.5rem" height="12.5rem"></SvgIcon>
               </div>
               <div class="cup">
-                <SvgIcon name="cup" width="200" height="200"></SvgIcon>
+                <SvgIcon class="svg" name="cup" width="12.5rem" height="12.5rem"></SvgIcon>
               </div>
             </div>
 
@@ -175,16 +175,16 @@
               <div class="roulette"></div>
               <div class="rolling">
                 <div class="in">
-                  <SvgIcon :name="icon[iconIndex]" width="50" height="50"></SvgIcon>
+                  <SvgIcon class="svg" :name="icon[iconIndex]" width="3.125rem" height="3.125rem"></SvgIcon>
                   <span>{{ icon[iconIndex] }}</span>
                 </div>
                 <div class="out">
-                  <SvgIcon :name="icon[outIndex]" width="50" height="50"></SvgIcon>
+                  <SvgIcon class="svg" :name="icon[outIndex]" width="3.125rem" height="3.125rem"></SvgIcon>
                   <span>{{ icon[outIndex] }}</span>
                 </div>
               </div>
               <div class="building">
-                <SvgIcon name="shenzhen" width="300" height="300"></SvgIcon>
+                <SvgIcon class="svg" name="shenzhen" width="18.75rem" height="18.75rem"></SvgIcon>
               </div>
             </div>
             <!-- <div class="date">
@@ -446,10 +446,13 @@ const playAnimation = () => {
             duration: 1,
             ease: 'none',
           });
-          gsap.to('.box', {
-            x: 100,
-            y: 150,
-            scale: 0.5,
+          gsap.set('.box', { opacity: 1 });
+          gsap.from('.box', {
+            // x: 96,
+            x: 0,
+            y: 0,
+            // y: 150,
+            scale: 0,
             duration: 1.5,
             delay: 0.3,
             ease: 'elastic',
@@ -458,10 +461,11 @@ const playAnimation = () => {
             },
             onComplete() {},
           });
-          gsap.to('.box-2', {
-            x: 180,
-            y: 50,
-            scale: 1,
+          gsap.set('.box-2', { opacity: 1 });
+          gsap.from('.box-2', {
+            x: 0,
+            y: 0,
+            scale: 0,
             duration: 1.5,
             delay: 0.6,
             ease: 'elastic',
@@ -470,10 +474,12 @@ const playAnimation = () => {
             },
             onComplete() {},
           });
-          gsap.to('.ball', {
-            opacity: 1,
-            x: 160,
-            y: -150,
+          gsap.set('.ball', { opacity: 1 });
+          gsap.from('.ball', {
+            // x: 160,
+            // y: -150,
+            x: 0,
+            y: 0,
             onComplete() {
               gsap.to('.ball', {
                 scale: 1.5,
@@ -620,16 +626,16 @@ const playAnimation = () => {
         // rotate: 5,
         // scale: 0,
         keyframes: [
-          { x: 0, y: 110, duration: 0.2 },
-          { x: 190, y: 110, duration: 0.5, delay: 0.5 },
+          { x: 0, y: (90/746)*window.innerHeight, duration: 0.2 },
+          { x: (150/1528)*window.innerWidth, y: (90/746)*window.innerHeight, duration: 0.5, delay: 0.5 },
         ],
         ease: 'power1.out',
       });
       gsap.to('.date', {
         // rotate: -5,
         keyframes: [
-          { x: 150, duration: 1 },
-          { x: 450, duration: 0.5 },
+          { x: (150/1528)*window.innerWidth, duration: 1 },
+          { x:(400/1528)*window.innerWidth, duration: 0.5 },
         ],
         ease: 'power1.inOut',
         delay: 1,
@@ -668,8 +674,9 @@ const playAnimation = () => {
         duration: 1,
         repeatDelay: 0.5,
         onRepeat() {
+          if(document.getElementsByClassName('roulette')[0]){
           document.getElementsByClassName('roulette')[0]['style'].rotate = a + 'deg';
-          a = (a + 90) % 360;
+          a = (a + 90) % 360;}
         },
       });
       gsap.to('.rolling', {
@@ -806,6 +813,10 @@ const gotoFooter = (id: string) => {
     border-radius: 0.5rem;
     background-color: cornflowerblue;
     .flex-mode();
+    .arrowsvg {
+      width: 20px;
+      height: 20px;
+    }
   }
   .header {
     width: 100%;
@@ -817,6 +828,8 @@ const gotoFooter = (id: string) => {
       color: white;
     }
     .switch {
+      width: 25px;
+      height: 25px;
       fill: #333333;
     }
     .switch:hover {
@@ -859,6 +872,10 @@ const gotoFooter = (id: string) => {
         color: white;
         font-size: 1.25rem;
         cursor: pointer;
+        .fly {
+          width: 20px;
+          height: 20px;
+        }
       }
     }
     .right {
@@ -881,23 +898,29 @@ const gotoFooter = (id: string) => {
         animation: 20s change linear infinite;
       }
       .leftPart {
-        background: url('/left.png');
+        background: url('/left.png') no-repeat;
+        background-size: cover;
         transform-origin: left;
         filter: drop-shadow(10px 0px 5px rgba(0, 0, 0, 0.5)) brightness(10);
       }
       .rightPart {
         background: url('/right.png');
+        background-size: cover;
         transform-origin: right;
-        filter: drop-shadow(-10px 0px 1px rgba(0, 0, 0, 0.5)) brightness(10);
+        transform: translateX(0.1rem);
+        filter: drop-shadow(-10px 1px 0px rgba(0, 0, 0, 0.5)) brightness(10);
       }
       .topPart {
         background: url('/top.png');
+        background-size: cover;
         transform-origin: top;
         filter: drop-shadow(0px 10px 5px rgba(0, 0, 0, 0.5)) brightness(10);
       }
       .bottomPart {
         background: url('/bottom.png');
+        background-size: cover;
         transform-origin: bottom;
+        transform: translateY(0.1rem);
         filter: drop-shadow(0px -10px 5px rgba(0, 0, 0, 0.5)) brightness(10);
       }
     }
@@ -933,6 +956,9 @@ const gotoFooter = (id: string) => {
       .left {
         .flex-mode(row);
         width: 40%;
+        img {
+          height: 100%;
+        }
       }
       .right {
         width: 40%;
@@ -943,6 +969,7 @@ const gotoFooter = (id: string) => {
         .word {
           font-size: 20px;
           font-weight: 900;
+          line-height: 2;
         }
       }
     }
@@ -963,12 +990,12 @@ const gotoFooter = (id: string) => {
     }
     .bot {
       width: 100%;
-      height: 300px;
+      height: 500px;
       .flex-mode(row);
 
       gap: 3.125rem;
       .left {
-        .flex-mode(row);
+        // .flex-mode(row,center,center);
         height: 100%;
         width: 40%;
       }
@@ -981,7 +1008,8 @@ const gotoFooter = (id: string) => {
         .word {
           font-size: 20px;
           font-weight: 900;
-          opacity: 0.7;
+          // opacity: 0.7;
+          line-height: 2;
         }
       }
     }
@@ -1022,6 +1050,7 @@ const gotoFooter = (id: string) => {
           flex-shrink: 0;
           width: 300vw;
           height: 100%;
+          margin-left: 12rem;
           //background: linear-gradient(to right, black, rgb(66, 2, 34));
           //background-color: black;
 
@@ -1062,24 +1091,26 @@ const gotoFooter = (id: string) => {
             }
 
             .box {
+              opacity: 0;
               position: absolute;
-              transform: translate3d(6rem, 0, 0);
+              transform: translate(340px, 420px);
               clip-path: path('M15,45 A30,30,0,0,1,75,45 A30,30,0,0,1,135,45 Q135,90,75,130 Q15,90,15,45 Z');
-              width: 10rem;
-              height: 10rem;
-              scale: 0;
+              width: 300px;
+              height: 287px;
+              scale: 0.5;
               // border-radius: 0.5rem;
               background: radial-gradient(skyblue, purple);
             }
             .box-2 {
+              opacity: 0;
               position: absolute;
-              transform: translate3d(6rem, 0, 0);
+              transform: translate(240px, 60px);
               clip-path: path(
                 'M18.256 30.33c-1.001.211-2.038.322-3.1.322C6.786 30.651 0 23.79 0 15.325S6.785 0 15.155 0s15.156 6.862 15.156 15.326c0 .709-.048 1.406-.14 2.09h1.657c-.092-.684-.14-1.381-.14-2.09C31.689 6.862 38.475 0 46.845 0 55.214 0 62 6.862 62 15.326S55.214 30.65 46.844 30.65c-.94 0-1.862-.086-2.755-.252V31.6a15.083 15.083 0 0 1 2.755-.252C55.214 31.349 62 38.21 62 46.674 62 55.138 55.214 62 46.844 62c-8.37 0-15.155-6.862-15.155-15.326 0-1.074.11-2.123.317-3.135h-1.945c.164.904.25 1.835.25 2.787 0 8.464-6.785 15.326-15.155 15.326S0 54.79 0 46.326 6.785 31 15.155 31c1.063 0 2.1.11 3.1.321v-.99Z'
               );
-              width: 4rem;
-              height: 4rem;
-              scale: 0;
+              width: 150px;
+              height: 150px;
+              scale: 1;
               // border-radius: 0.5rem;
               background: radial-gradient(rgb(154, 228, 210), rgb(90, 204, 253));
             }
@@ -1087,7 +1118,7 @@ const gotoFooter = (id: string) => {
               width: 50px;
               height: 50px;
               position: absolute;
-              //transform: translate3d(6rem, 0, 0);
+              transform: translate(160px, -150px);
               clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
               background: linear-gradient(45deg, #d7c21f, rgb(113, 23, 158));
               opacity: 0;
@@ -1155,6 +1186,10 @@ const gotoFooter = (id: string) => {
               z-index: 2;
               transform: translate(15rem, 2rem);
               opacity: 0;
+              .cloudsvg {
+                width: 300px;
+                height: 154px;
+              }
             }
             .sunLight {
               width: 350px;
@@ -1194,13 +1229,19 @@ const gotoFooter = (id: string) => {
                 position: absolute;
                 z-index: 1;
                 transform: translateX(-5rem) rotate(-25deg);
+                .plantsvg {
+                  width: 215px;
+                  height: 152px;
+                }
               }
               .plant2 {
                 position: absolute;
-                // zoom: 0.3;
-
                 z-index: 0;
                 transform: translate(3rem, -2rem) scale(2);
+                .plantsvg {
+                  width: 150px;
+                  height: 154px;
+                }
               }
             }
           }
@@ -1208,14 +1249,20 @@ const gotoFooter = (id: string) => {
           .lakeLand {
             position: relative;
             z-index: 0;
-            transform: translate(-18rem, 1rem);
-
+            transform: translate(-14rem, 3rem);
+            margin-right: 10rem;
             .land {
               position: absolute;
               clip-path: circle(30rem at left center);
-              transform: translate(-7rem, -6rem) rotateY(90deg);
+              transform: rotateY(90deg);
+
+              left: -1rem;
+
+              bottom: -16rem;
 
               .landsvg {
+                width: 400px;
+                height: 300px;
                 filter: hue-rotate(90deg);
                 //filter: drop-shadow(16px 16px 20px rgb(67, 36, 36)) invert(75%);
                 fill: #114544;
@@ -1225,9 +1272,12 @@ const gotoFooter = (id: string) => {
             .lake {
               position: absolute;
               z-index: -1;
-              transform: translate(-5rem, 2rem) rotateX(90deg);
-              width: 400px;
-              height: 200px;
+              transform: rotateX(90deg);
+              left: -5rem;
+              top: 2rem;
+              width: 450px;
+              height: 220px;
+
               background: linear-gradient(skyblue, white);
               //clip-path: ellipse(closest-side farthest-side);
               clip-path: ellipse(50% 60%);
@@ -1290,7 +1340,7 @@ const gotoFooter = (id: string) => {
             .pic {
               position: absolute;
               z-index: 3;
-              top: 6.5rem;
+              top: 10rem;
               left: -10rem;
               transform: rotateY(90deg);
               transform-origin: left;
@@ -1306,6 +1356,10 @@ const gotoFooter = (id: string) => {
               left: 40rem;
               transform: rotateX(180deg);
               backface-visibility: hidden;
+              .svg {
+                width: 200px;
+                height: 200px;
+              }
             }
             .cup {
               position: absolute;
@@ -1313,6 +1367,10 @@ const gotoFooter = (id: string) => {
               top: 5rem;
               left: 40rem;
               backface-visibility: hidden;
+              .svg {
+                width: 200px;
+                height: 200px;
+              }
             }
           }
           .work {
@@ -1372,7 +1430,7 @@ const gotoFooter = (id: string) => {
               z-index: 3;
 
               top: -10rem;
-              left: 23rem;
+              left: 38rem;
               white-space: nowrap;
               overflow: visible;
               color: white;
@@ -1426,19 +1484,22 @@ const gotoFooter = (id: string) => {
               background-size: cover;
               width: 100px;
               height: 100px;
-              left: 35rem;
+              left: 55rem;
               top: -2rem;
             }
             .rolling {
               position: absolute;
-              left: 35rem;
+              left: 55rem;
               top: -2rem;
               width: 100px;
               height: 100px;
               .flex-mode();
               font-weight: bold;
               font-size: 2rem;
-
+              .svg {
+                width: 50px;
+                height: 50px;
+              }
               .in {
                 .flex-mode();
                 gap: 1rem;
@@ -1472,8 +1533,12 @@ const gotoFooter = (id: string) => {
               position: absolute;
               z-index: 3;
               top: -3rem;
-              left: 10rem;
+              left: 13rem;
               opacity: 0;
+              .svg {
+                width: 300px;
+                height: 300px;
+              }
             }
           }
 
